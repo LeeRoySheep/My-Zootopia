@@ -18,20 +18,22 @@ def serialize_animal(animal_obj):
     output = ''
     output += '<li class="cards__item">'
     output += f'  <div class="card__title">{animal_obj["name"]}</div>\n'
-    output += '  <p class="card__text">'
+    output += '  <div class="card__text">\n'
+    output += '    <ul>\n'
     if "diet" in animal_obj["characteristics"]:
-        output += f'  <strong>Diet:</strong> {animal_obj["characteristics"]["diet"]}<br/>\n'
+        output += f'      <li><strong>Diet:</strong> {animal_obj["characteristics"]["diet"]}</li>\n'
     if "location" in animal_obj:
-        output += f'  <strong>Location:</strong> {animal_obj["location"][0]}<br/>\n'
+        output += f'      <li><strong>Location:</strong> {animal_obj["location"][0]}</li>\n'
     if "type" in animal_obj["characteristics"]:
-        output += f'  <strong>Type:</strong> {animal_obj["characteristics"]["type"]}<br/>\n'
+        output += f'      <li><strong>Type:</strong> {animal_obj["characteristics"]["type"]}</li>\n'
     if "lifespan" in animal_obj["characteristics"]:
-        output += f'  <strong>Lifespan:</strong> {animal_obj["characteristics"]["lifespan"]}<br/>\n'
+        output += f'      <li><strong>Lifespan:</strong> {animal_obj["characteristics"]["lifespan"]}</li>\n'
     if "weight" in animal_obj["characteristics"]:
-        output += f'  <strong>Weight:</strong> {animal_obj["characteristics"]["weight"]}<br/>\n'
+        output += f'      <li><strong>Weight:</strong> {animal_obj["characteristics"]["weight"]}</li>\n'
     if "top_speed" in animal_obj["characteristics"]:
-        output += f'  <strong>Top Speed:</strong> {animal_obj["characteristics"]["top_speed"]}<br/>\n'
-    output += '  </p>\n'
+        output += f'      <li><strong>Top Speed:</strong> {animal_obj["characteristics"]["top_speed"]}</li>\n'
+    output += '    </ul>\n'
+    output += '  </div>\n'
     output += '</li>\n'
     return output
 
