@@ -26,6 +26,8 @@ def serialize_animal(animal_obj):
         output += f'      <li><strong>Location:</strong> {animal_obj["location"][0]}</li>\n'
     if "type" in animal_obj["characteristics"]:
         output += f'      <li><strong>Type:</strong> {animal_obj["characteristics"]["type"]}</li>\n'
+    if "skin_type" in animal_obj["characteristics"]:
+        output += f'      <li><strong>Skin Type:</strong> {animal_obj["characteristics"]["skin_type"]}</li>\n'
     if "lifespan" in animal_obj["characteristics"]:
         output += f'      <li><strong>Lifespan:</strong> {animal_obj["characteristics"]["lifespan"]}</li>\n'
     if "weight" in animal_obj["characteristics"]:
@@ -38,12 +40,15 @@ def serialize_animal(animal_obj):
     return output
 
 
-def create_data_string(animal_data):
+def create_data_string(animal_data, animal_selection = None):
     """
     function to create a string with selected data from the json file
+    and option to select animals form a selection dict or list
     :param animal_data:
     :return:
     """
+    if animal_selection != None:
+        animal_data = [animals for animals in animal_data if animals["name"] in animal_selection.keys()]
     output = ''
     for animal in animal_data:
         output += serialize_animal(animal)
@@ -70,13 +75,57 @@ def html_writer(html_file_path, new_string):
     with open(html_file_path, 'w') as handler:
         handler.write(new_string)
 
+def get_skin_types(animals):
+    """
+    function to create and return a list with all the different skin types
+    :param animals:
+    :return:
+    """
+    skin_types_dict = dict()
+    for animal in animals:
+        if 'skin_type' in animal["characteristics"]:
+            skin_types_dict[animal["name"]] = animal["characteristics"]["skin_type"]
+    return skin_types_dict
+
+
+def get_by_skin(skin_type, skin_dict):
+    """
+    function to return selected skin type dict from a skins type dictionary
+    :param skin_type:
+    :param skin_dict:
+    :return:
+    """
+    selected_skin_dict = dict()
+    for skin in skin_dict.items():
+        if skin_type in skin:
+            selected_skin_dict[skin[0]] = skin[1]
+    return selected_skin_dict
+
+
+def get_skin_choice(prompt, skins):
+    """
+    function to get user choice from a skins dictionary
+    :param prompt:
+    :param skins:
+    :return:
+    """
+    choice = input(prompt)
+    while choice not in skins.values():
+        print(f'Sorry {choice} is not selectable skin choice!')
+        choice = input(prompt)
+    return choice
+
 
 def main():
     """
     main function combining all functionality of this file
     :return:
     """
-    text_input = create_data_string(load_data('animals_data.json'))
+    animals = load_data('animals_data.json')
+    skin_types = get_skin_types(animals)
+    skin_choice = get_skin_choice(f"Please select one of the following skyn types:\n{set(skin_types.values())}",skin_types)
+    animals_left = get_by_skin(skin_choice,skin_types)
+    text_input = create_data_string(animals,animals_left)
     html_writer('animals_template.html',html_reader('animals_template.html').replace('__REPLACE_ANIMALS_INFO__',text_input))
 
 
