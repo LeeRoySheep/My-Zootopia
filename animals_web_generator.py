@@ -9,6 +9,32 @@ def load_data(data_path):
     with open(data_path, 'r') as handle:
         return json.load(handle)
 
+def serialize_animal(animal_obj):
+    """
+    function to create serialized html as string from animal obj
+    :param animal_obj:
+    :return:
+    """
+    output = ''
+    output += '<li class="cards__item">'
+    output += f'  <div class="card__title">{animal_obj["name"]}</div>\n'
+    output += '  <p class="card__text">'
+    if "diet" in animal_obj["characteristics"]:
+        output += f'  <strong>Diet:</strong> {animal_obj["characteristics"]["diet"]}<br/>\n'
+    if "location" in animal_obj:
+        output += f'  <strong>Location:</strong> {animal_obj["location"][0]}<br/>\n'
+    if "type" in animal_obj["characteristics"]:
+        output += f'  <strong>Type:</strong> {animal_obj["characteristics"]["type"]}<br/>\n'
+    if "lifespan" in animal_obj["characteristics"]:
+        output += f'  <strong>Lifespan:</strong> {animal_obj["characteristics"]["lifespan"]}<br/>\n'
+    if "weight" in animal_obj["characteristics"]:
+        output += f'  <strong>Weight:</strong> {animal_obj["characteristics"]["weight"]}<br/>\n'
+    if "top_speed" in animal_obj["characteristics"]:
+        output += f'  <strong>Top Speed:</strong> {animal_obj["characteristics"]["top_speed"]}<br/>\n'
+    output += '  </p>\n'
+    output += '</li>\n'
+    return output
+
 
 def create_data_string(animal_data):
     """
@@ -18,17 +44,7 @@ def create_data_string(animal_data):
     """
     output = ''
     for animal in animal_data:
-        output += '<li class="cards__item">'
-        output += f'  <div class="card__title">{animal["name"]}</div>\n'
-        output += '  <p class="card__text">'
-        if "diet" in animal["characteristics"]:
-            output += f'  <strong>Diet:</strong> {animal["characteristics"]["diet"]}<br/>\n'
-        if "location" in animal:
-            output += f'  <strong>Location:</strong> {animal["location"][0]}<br/>\n'
-        if "type" in animal["characteristics"]:
-            output += f'  <strong>Type:</strong> {animal["characteristics"]["type"]}<br/>\n'
-        output += '  </p>\n'
-        output += '</li>\n'
+        output += serialize_animal(animal)
     return output
 
 
