@@ -18,15 +18,16 @@ def create_data_string(animal_data):
     """
     output = ''
     for animal in animal_data:
+        output += '<li class="cards__item">'
         if "name" in animal:
-            output += f'Name: {animal["name"]}\n'
+            output += f'Name: {animal["name"]}<br/>\n'
         if "diet" in animal["characteristics"]:
-            output += f'Diet: {animal["characteristics"]["diet"]}\n'
+            output += f'Diet: {animal["characteristics"]["diet"]}<br/>\n'
         if "location" in animal:
-            output += f'Location: {animal["location"][0]}\n'
+            output += f'Location: {animal["location"][0]}<br/>\n'
         if "type" in animal["characteristics"]:
-            output += f'Type: {animal["characteristics"]["type"]}\n'
-        output += '\n'
+            output += f'Type: {animal["characteristics"]["type"]}<br/>\n'
+        output += '</li>\n'
     return output
 
 
