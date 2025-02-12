@@ -44,7 +44,9 @@ def create_data_string(animal_data, animal_selection = None):
     """
     function to create a string with selected data from the json file
     and option to select animals form a selection dict or list
-    :param animal_data:
+    also an extra option of animal_selection to choose certain types of animals
+    :param1 animal_data:
+    :param2 animal_selection:
     :return:
     """
     if animal_selection != None:
