@@ -126,7 +126,7 @@ def main():
     skin_choice = get_skin_choice(f"Please select one of the following skyn types:\n{set(skin_types.values())}",skin_types)
     animals_left = get_by_skin(skin_choice,skin_types)
     text_input = create_data_string(animals,animals_left)
-    html_writer('animals_template.html',html_reader('animals_template.html').replace('__REPLACE_ANIMALS_INFO__',text_input))
+    html_writer('animals.html',html_reader('animals_template.html').replace('__REPLACE_ANIMALS_INFO__',text_input))
 
 
 if __name__ == '__main__':
