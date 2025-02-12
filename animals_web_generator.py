@@ -74,6 +74,7 @@ def html_writer(html_file_path, new_string):
     """
     with open(html_file_path, 'w') as handler:
         handler.write(new_string)
+    print(f'{html_file_path} succesfully created')
 
 def get_skin_types(animals):
     """
